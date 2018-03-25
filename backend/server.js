@@ -15,7 +15,6 @@ const {
 } = require('./utils/postgres');
 const lightning = require('./utils/lightning');
 const routes = require('./utils/routes');
-const twilio = require('./utils/twilio');
 const { getBtcPrice, btcToSat } = require('./utils/getBtcPrice');
 
 app.use(routes);
@@ -36,22 +35,6 @@ call.on('data', async (data) => {
   coneCount = await OrderIcecream.coneCount();
   invoiceSocketMap[invoice].socket.emit('PAID');
   io.emit('CONE_UPDATE', { coneCount }); // TODO: This only emits to the purchasing socket, not all sockets as would be expected
-
-  twilio.messages.create({
-    to: o.phone,
-    from: process.env.TWILIO_PHONE_NUMBER,
-    body: 'Your Lightning Network payment has been accepted 🍦 Your ETA is being calculated 🧐',
-  });
-
-  const msg = {
-    from: process.env.TWILIO_PHONE_NUMBER,
-    body: `Order paid\nid: ${o.id}\nAddress: ${o.address}\nPhone: ${o.phone}\nName: ${o.name}\n===========`,
-  };
-  oi.forEach(x => msg.body += `\n${x.quantity} ${x.icecream.flavor}`);
-  msg.to = process.env.JEFF_PHONE;
-  twilio.messages.create(msg);
-  msg.to = process.env.ROB_PHONE;
-  twilio.messages.create(msg);
 });
 
 // call.on('end', () => {

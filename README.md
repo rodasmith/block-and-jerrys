@@ -19,13 +19,9 @@ This is the pre-alpha version... nuff said.
 * [BTCD](https://github.com/roasbeef/btcd) or [Bitcoind](https://github.com/bitcoin/bitcoin) -- these are unneeded for the [Neutrino Light Wallet](https://github.com/bitcoin/bips/blob/master/bip-0157.mediawiki)
 * [Postgres](https://www.postgresql.org/download/)
 * [Google Maps API Key](https://developers.google.com/maps/)
-* [Twilio API Key (trial works)](https://www.twilio.com/try-twilio)
 * Environment variables:
 ```
 export POSTGRES_URI="postgresql://[USERNAME]:[PASSWORD]@localhost/icecream"
-export TWILIO_SID=[TWILIO SID]
-export TWILIO_AUTH_TOKEN=[TWILIO AUTHORIZATION TOKEN]
-export TWILIO_PHONE_NUMBER=[TWILIO PHONE NUMBER]
 ```
 
 #### Setup
