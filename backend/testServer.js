@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
         price: 0.000018,
       },
     ],
-    coneCount: 0,
+    donutCount: 0,
     btcPrice: 100,
   });
   socket.on('GENERATE_INVOICE', async () => {

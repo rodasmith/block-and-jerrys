@@ -60,7 +60,7 @@ class Gallery extends React.Component {
   render() {
     const action = this.props.quantity % 3 === 0 ? '🍦' : this.props.quantity % 3 === 1 ? '🍨' : '⚡️';
     const msg = 'added to your cart!';
-    const message = this.props.quantity === 1 ? `1 cone ${msg}` : `${this.props.quantity} cones ${msg}`;
+    const message = this.props.quantity === 1 ? `1 donut ${msg}` : `${this.props.quantity} donuts ${msg}`;
     return (
       <div style={styles.gallery}>
         {this.props.cart.map(x => (

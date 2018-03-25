@@ -3,8 +3,8 @@ const bp = require('body-parser');
 
 const {
   Order,
-  Icecream,
-  OrderIcecream,
+  Donut,
+  DonutOrder,
 } = require('./postgres');
 const getDistance = require('./getDistance');
 
@@ -18,11 +18,11 @@ router.use((req, res, next) => {
 });
 
 router.use('/dashboard/order/:orderId', async (req, res) => {
-  const data = await OrderIcecream.findAll({
+  const data = await DonutOrder.findAll({
     where: {
       order_id: req.params.orderId,
     },
-    include: [{ model: Icecream }],
+    include: [{ model: Donut }],
   });
   res.json({ data });
 });

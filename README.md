@@ -1,43 +1,32 @@
-# Block and Jerry's
-
-*LAUNCHING SOON:* Block and Jerry's is coming to the Bitcoin mainnet March 7th.
-
-## Background
-Motivated by [Starblocks](https://starblocks.acinq.co/#/), I wanted to offer the world a dessert to compliment their Testnet coffee. Using Lighting Lab's [LND](https://github.com/lightningnetwork/lnd) as my gateway to the Lightning Network, I built a React front end to generate invoices for ice cream on top of my LND node.
-
-450 testnet cones later, it's time for the big leagues.
-
-![Big Leagues](https://media.giphy.com/media/3oAt20WaK4ZpWdD63m/giphy.gif)
-
-## Disclaimer
-This is the pre-alpha version... nuff said.
-
 ## Getting Started
 
 #### Prerequisites
 * [Lightning Network Daemon (LND)](https://github.com/lightningnetwork/lnd)
-* [BTCD](https://github.com/roasbeef/btcd) or [Bitcoind](https://github.com/bitcoin/bitcoin) -- these are unneeded for the [Neutrino Light Wallet](https://github.com/bitcoin/bips/blob/master/bip-0157.mediawiki)
+* [Bitcoind](https://github.com/bitcoin/bitcoin)
 * [Postgres](https://www.postgresql.org/download/)
-* [Google Maps API Key](https://developers.google.com/maps/)
 * Environment variables:
 ```
-export POSTGRES_URI="postgresql://[USERNAME]:[PASSWORD]@localhost/icecream"
+export POSTGRES_URI="postgresql://[USERNAME]:[PASSWORD]@localhost/donut"
 ```
 
 #### Setup
-1. Start btcd on simnet or testnet
+1. Start bitccoind
 ```
-btcd --testnet --txindex --rpcuser=REPLACEME --rpcpass=REPLACEME
+bitcoind --testnet --txindex --rpcuser=REPLACEME --rpcpass=REPLACEME
 ```
-2. Once btcd is synced, start up lnd
+2. Once `bitcoind` is synced, start `lnd`:
 ```
-lnd --bitcoin.active --bitcoin.testnet --debuglevel=debug --btcd.rpcuser=kek --btcd.rpcpass=kek --externalip=X.X.X.X
+lnd --bitcoin.active --bitcoin.testnet --debuglevel=debug --btcd.rpcuser=REPLACEME --btcd.rpcpass=REPLACEME --externalip=X.X.X.X
 ```
-3. Unlock lnd (or create if this is your first time)
+3. If you already have a `lnd` wallet, unlock it:
+```
+lncli --rpcserver=localhost:10009 unlock
+```
+If you do not yet have an `lnd` wallet, create one:
 ```
 lncli --rpcserver=localhost:10009 create
 ```
-4. Create a Postgres database called `icecream` and create a user with the appropriate privileges
+4. Create a Postgres database called `donut` and create a user with the appropriate privileges
 5. Save all the environment variables from above
 6. Clone Block and Jerry's
 ```

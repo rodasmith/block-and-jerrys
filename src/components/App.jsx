@@ -11,10 +11,10 @@ import Dialog from 'material-ui/Dialog';
 import { connect } from 'react-redux';
 import ioClient from 'socket.io-client';
 
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.jpg';
 import Cart from './cart';
 import Gallery from './gallery';
-import coneImg from '../assets/ice-cream-cone.png';
+import donutImg from '../assets/donut.jpg';
 import features from '../utils/features';
 
 class App extends React.Component {
@@ -23,11 +23,11 @@ class App extends React.Component {
     url += ':5000';
     const socket = ioClient(url);
     console.log('Connected to socket at', url);
-    socket.on('INIT', async ({ coneCount, cart, btcPrice }) => {
+    socket.on('INIT', async ({ donutCount, cart, btcPrice }) => {
       cart.forEach((x, i) => {
         cart[i].priceBtc = cart[i].price / btcPrice;
       });
-      this.props.handleInit({ socket, coneCount, cart, btcPrice });
+      this.props.handleInit({ socket, donutCount, cart, btcPrice });
     });
   }
   render() {
@@ -48,12 +48,11 @@ class App extends React.Component {
             </Link>
           </Col>
           <Col xs={6} xsOffset={1} mdOffset={2} md={4} >
-            <Image responsive rounded src={logo} alt="LND logo" style={{ paddingTop: '0.5em' }} />
+            <Image responsive rounded src={logo} alt="LND logo" />
             <h3 style={{ textAlign: 'center' }}><i>Ice Cream Delivery powered by the Bitcoin Lightning Network</i></h3>
           </Col>
           <Col xsOffset={0} xs={3} md={2} mdOffset={2} style={{ marginTop: '10px' }}>
-            <span style={{ fontSize: '16px', color: 'white' }}>Total Sold: {this.props.coneCount}</span>
-            <img alt="Cute Cone" src={coneImg} style={{ width: '33px' }} />
+            <span style={{ fontSize: '16px', color: 'white' }}>Total Sold: {this.props.donutCount} 🍩</span>
           </Col>
         </Row>
         <Gallery />
@@ -95,7 +94,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   socket: state.socket,
-  coneCount: state.coneCount,
+  donutCount: state.donutCount,
   cart: state.cart,
   open: state.open,
   cartTotal: state.cartTotal,
@@ -108,8 +107,8 @@ const mapDispatchToProps = dispatch => ({
   handleSubtract: ({ id }) => {
     dispatch({ type: 'SUBTRACT', id });
   },
-  handleInit: ({ socket, coneCount, cart, btcPrice }) => {
-    dispatch({ type: 'INIT', socket, coneCount, cart, btcPrice });
+  handleInit: ({ socket, donutCount, cart, btcPrice }) => {
+    dispatch({ type: 'INIT', socket, donutCount, cart, btcPrice });
   },
   handleOpenClose: () => {
     dispatch({ type: 'OPEN' });

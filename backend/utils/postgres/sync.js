@@ -1,24 +1,24 @@
 const {
   db,
   Order,
-  Icecream,
-  OrderIcecream,
+  Donut,
+  AdventureOrder,
 } = require('./index.js');
 
 const menu = require('./menu.js');
 
 const populate = async () => {
   try {
-    await Promise.all(menu.map(x => Icecream.create(x)));
+    await Promise.all(menu.map(x => Donut.create(x)));
     const o1 = await Order.create({
       name: 'Bob',
       address: '874 Fell St.',
       phone: '5136966969',
       invoice: 'lnsb ~ test invoice ~',
     });
-    await OrderIcecream.create({
+    await DonutOrder.create({
       order_id: o1.id,
-      icecream_id: 1,
+      donut_id: 1,
       quantity: 2,
     });
   } catch (err) { console.log('Error populating', err); }

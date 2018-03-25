@@ -1,6 +1,6 @@
 // joins with order
 module.exports = (db, Sequelize) => (
-  db.define('icecream', {
+  db.define('donut', {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,

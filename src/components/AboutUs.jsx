@@ -4,7 +4,6 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
-import axios from 'axios';
 
 import Back from './back';
 import { teamInfo, constants } from '../utils';
@@ -32,17 +31,8 @@ const styles = {
 class AboutUs extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      contributors: [],
-    };
     this.handleTeamInfoRender = this.handleTeamInfoRender.bind(this);
     this.handleContributorsRender = this.handleContributorsRender.bind(this);
-    axios.get('https://api.github.com/repos/BlockAndJerrys/block-and-jerrys/contributors')
-      .then(res => {
-        const contributors = res.data.filter(x => !(x.login === 'tangsauce' || x.login === 'robertDurst' || x.login === 'andywong418'));
-        contributors.push({ login: 'ewbao', avatar_url: 'https://avatars3.githubusercontent.com/u/5509753?v=4', html_url: 'https://github.com/ewbao' });
-        this.setState({ contributors });
-      });
   }
 
   handleTeamInfoRender() {
@@ -65,7 +55,9 @@ class AboutUs extends Component {
   }
 
   handleContributorsRender() {
-    return this.state.contributors.map(x => (
+    return [
+      { login: '', html_url: '', avatar_url: '' }
+    ].map(x => (
       <div key={x.login}>
         <a href={x.html_url} style={{ color: constants.PINK }} target="_blank" rel="noopener noreferrer">
           <h2>{x.login}</h2>

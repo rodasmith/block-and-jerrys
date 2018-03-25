@@ -84,9 +84,9 @@ class Dashboard extends React.Component {
               .then(res => {
                 let data = res.data.data;
                 data = data.map(x => {
-                  x.flavor = x.icecream.flavor;
-                  x.price = x.icecream.price;
-                  delete x.icecream;
+                  x.flavor = x.donut.flavor;
+                  x.price = x.donut.price;
+                  delete x.donut;
                   return x;
                 });
                 this.setState({ orderData: data });

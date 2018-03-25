@@ -25,8 +25,8 @@ const Cart = ({ socket, handleInvoice, handleConeUpdate }) => {
     history.push('/paid');
   });
 
-  socket.on('CONE_UPDATE', ({ coneCount }) => {
-    handleConeUpdate({ coneCount });
+  socket.on('DONUT_UPDATE', ({ donutCount }) => {
+    handleConeUpdate({ donutCount });
   });
 
   return (
@@ -52,8 +52,8 @@ const mapDispatchToProps = dispatch => ({
   handleInvoice: ({ invoice }) => {
     dispatch({ type: 'RECEIVED_INVOICE', invoice });
   },
-  handleConeUpdate: ({ coneCount }) => {
-    dispatch({ type: 'CONE_UPDATE', coneCount });
+  handleConeUpdate: ({ donutCount }) => {
+    dispatch({ type: 'DONUT_UPDATE', donutCount });
   },
 });
 

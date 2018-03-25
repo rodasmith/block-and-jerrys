@@ -17,27 +17,27 @@ db.authenticate()
   });
 
 const Order = db.import('./order.js');
-const Icecream = db.import('./icecream.js');
-const OrderIcecream = db.import('./order_icecream.js');
+const Donut = db.import('./donut.js');
+const DonutOrder = db.import('./donut_order.js');
 
-Order.hasMany(OrderIcecream);
-Icecream.hasMany(OrderIcecream);
-OrderIcecream.belongsTo(Order);
-OrderIcecream.belongsTo(Icecream);
+Order.hasMany(DonutOrder);
+Donut.hasMany(DonutOrder);
+DonutOrder.belongsTo(Order);
+DonutOrder.belongsTo(Donut);
 
-OrderIcecream.coneCount = async () => {
-  const oics = await OrderIcecream.findAll({
+DonutOrder.donutCount = async () => {
+  const orders = await DonutOrder.findAll({
     include: [{
       model: Order,
       where: { status: 'paid' },
     }],
   });
-  const coneCount = oics.reduce((sum, x) => x.quantity + sum, 0);
-  return coneCount;
+  const donutCount = orders.reduce((sum, x) => x.quantity + sum, 0);
+  return donutCount;
 };
 
-Icecream.cart = async () => {
-  const cart = await Icecream.findAll({
+Donut.cart = async () => {
+  const cart = await Donut.findAll({
     order: [
       ['id', 'ASC'],
     ],
@@ -49,6 +49,6 @@ module.exports = {
   db,
   Op,
   Order,
-  Icecream,
-  OrderIcecream,
+  Donut,
+  DonutOrder,
 };

@@ -1,4 +1,4 @@
-// joins with ice_creams
+// joins with donuts
 module.exports = (db, Sequelize) => (
   db.define('order', {
     id: {

@@ -10,8 +10,8 @@ const io = require('socket.io')(http);
 
 const {
   Order,
-  Icecream,
-  OrderIcecream,
+  Donut,
+  AdventureOrder,
 } = require('./utils/postgres');
 const lightning = require('./utils/lightning');
 const routes = require('./utils/routes');
@@ -19,7 +19,7 @@ const { getBtcPrice, btcToSat } = require('./utils/getBtcPrice');
 
 app.use(routes);
 
-let coneCount = 0;
+let donutCount = 0;
 let cart = [];
 let btcPrice;
 
@@ -31,10 +31,10 @@ call.on('data', async (data) => {
   const invoice = data.payment_request;
   const o = await Order.findOne({ where: { invoice } });
   await o.update({ status: 'paid' });
-  const oi = await OrderIcecream.findAll({ where: { order_id: o.id }, include: [{ model: Icecream }] });
-  coneCount = await OrderIcecream.coneCount();
+  const oi = await AdventureOrder.findAll({ where: { order_id: o.id }, include: [{ model: Donut }] });
+  donutCount = await AdventureOrder.donutCount();
   invoiceSocketMap[invoice].socket.emit('PAID');
-  io.emit('CONE_UPDATE', { coneCount }); // TODO: This only emits to the purchasing socket, not all sockets as would be expected
+  io.emit('DONUT_UPDATE', { donutCount }); // TODO: This only emits to the purchasing socket, not all sockets as would be expected
 });
 
 // call.on('end', () => {
@@ -47,21 +47,21 @@ call.on('data', async (data) => {
 // socketio event listener
 io.on('connection', (socket) => {
   console.log('New connect');
-  socket.emit('INIT', { coneCount, cart, btcPrice });
+  socket.emit('INIT', { donutCount, cart, btcPrice });
   console.log('INIT CALLED');
   socket.on('GENERATE_INVOICE', async ({ name, address, phone, cartTotal, cartOrder }) => {
     const btcCartTotal = parseFloat(cartTotal) / (await getBtcPrice()) / btcToSat;
     const invoiceData = (new Date()).getTime() + name + address + phone;
-    const genInvoice = await lightning.generateInvoice(btcCartTotal, `Block and Jerry's for ${name}.`);
+    const genInvoice = await lightning.generateInvoice(btcCartTotal, `Donut Adventure for ${name}.`);
     const invoice = genInvoice.payment_request;
     const o = await Order.create({ name, address, phone, invoice });
     invoiceSocketMap[invoice] = { socket, order_id: o.id };
     socket.emit('INVOICE', { invoice });
     cartOrder.forEach(x => {
       if (x.quantity > 0) {
-        OrderIcecream.create({
+        AdventureOrder.create({
           order_id: o.id,
-          icecream_id: x.id,
+          donut_id: x.id,
           quantity: x.quantity,
         });
       }
@@ -74,9 +74,9 @@ io.on('connection', (socket) => {
 });
 
 async function init() {
-  // Since this is centralized, only need to get cone count on init
-  coneCount = await OrderIcecream.coneCount();
-  cart = await Icecream.cart();
+  // Since this is centralized, only need to get donut count on init
+  donutCount = await AdventureOrder.donutCount();
+  cart = await Donut.cart();
   btcPrice = await getBtcPrice();
 }
 

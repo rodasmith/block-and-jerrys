@@ -69,8 +69,8 @@ class qrCart extends React.Component {
   }
 
   render() {
-    // const coneMsg = this.props.quantity === 1 ? '1 cone' : `${this.props.quantity} cones`;
-    // const primaryText = `${coneMsg}: $${this.props.cartTotal} ~ ${(this.props.cartTotal / this.props.btcPrice).toFixed(6)} BTC`;
+    // const donutMsg = this.props.quantity === 1 ? '1 donut' : `${this.props.quantity} donuts`;
+    // const primaryText = `${donutMsg}: $${this.props.cartTotal} ~ ${(this.props.cartTotal / this.props.btcPrice).toFixed(6)} BTC`;
     return (
       <Paper zDepth={0} style={{ display: 'flex', flexFlow: 'column nowrap' }}>
         <div style={{ position: 'absolute', left: 12, top: 12 }}>

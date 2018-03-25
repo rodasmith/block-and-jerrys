@@ -1,6 +1,6 @@
 const initialState = {
   socket: null,
-  coneCount: 'loading cones...',
+  donutCount: 'loading donuts...',
   cart: [],
   cartTotal: 0,
   quantity: 0,
@@ -16,7 +16,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case 'INIT': {
-      const { socket, cart, coneCount, btcPrice } = action;
+      const { socket, cart, donutCount, btcPrice } = action;
       const cartOrder = cart.map((x) => {
         x.quantity = 0;
         return x;
@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         socket,
-        coneCount,
+        donutCount,
         cart: cartOrder,
         btcPrice,
       };
@@ -37,7 +37,7 @@ export default function (state = initialState, action) {
     }
 
     case 'ADD': {
-      let conePrice;
+      let donutPrice;
       const newCart = state.cart.map(x => {
         if (x.id === action.id) {
           if (action.quantity) {
@@ -45,14 +45,14 @@ export default function (state = initialState, action) {
           } else {
             x.quantity += 1;
           }
-          conePrice = x.price;
+          donutPrice = x.price;
         }
         return x;
       });
       return {
         ...state,
         cart: newCart,
-        cartTotal: state.cartTotal + conePrice,
+        cartTotal: state.cartTotal + donutPrice,
         quantity: state.quantity + 1,
       };
     }
@@ -106,11 +106,11 @@ export default function (state = initialState, action) {
         ...state,
         invoice: action.invoice,
       };
-    case 'CONE_UPDATE':
+    case 'DONUT_UPDATE':
       console.log('ALL SOCKETS SHOULD RECEIVE THIS', action);
       return {
         ...state,
-        coneCount: action.coneCount,
+        donutCount: action.donutCount,
       };
     case 'EMAIL':
       state.socket.emit(

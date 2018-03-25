@@ -14,8 +14,8 @@
 // import BrowseCart from './components/browseCart';
 // import CheckoutCart from './components/checkoutCart';
 // import PaidCart from './components/paidCart';
-// import ConeCounter from './components/coneCounter';
-// import Icecream from './components/icecream';
+// import ConeCounter from './components/donutCounter';
+// import Donut from './components/donut';
 //
 // import menu from './utils/menu';
 //
@@ -54,10 +54,10 @@
 //     shallow(<PaidCart restart={() => console.log('Test')} />);
 //   });
 //   it('shallow renders without crashing -- Cone Counter', () => {
-//     shallow(<ConeCounter totalcones={7} />);
+//     shallow(<ConeCounter totaldonuts={7} />);
 //   });
 //   it('shallow renders without crashing -- Cone Counter', () => {
-//     shallow(<Icecream
+//     shallow(<Donut
 //       imgUrl="This is a test imgUrl."
 //       flavor="This is a test flavour."
 //       price={10}
